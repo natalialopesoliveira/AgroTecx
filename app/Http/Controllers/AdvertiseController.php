@@ -24,6 +24,7 @@ class AdvertiseController extends Controller
         $this->validate($request, [
             'advertise.title' => 'required',
             'advertise.id_user' => 'required',
+            'advertise.status' => 'required',
             'advertise.description' => 'required',
             'advertise.price' => 'required'
         ]);
@@ -52,6 +53,7 @@ class AdvertiseController extends Controller
         $this->validate($request, [
             'advertise.title' => 'required',
             'advertise.id_user' => 'required',
+            'advertise.status' => 'required',
             'advertise.description' => 'required',
             'advertise.price' => 'required'
         ]);

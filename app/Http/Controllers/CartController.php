@@ -7,30 +7,19 @@ use App\Cart;
 
 class CartController extends Controller
 {
-    private $cart;
-
-    /**
-    * Create a new cart instance.
-    *
-    * @return void
-    */
-    public function __construct(Cart $cart)
-    {
-        $this->cart = $cart;
-    }
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'cart.id_user' => 'required',
-            'cart.id_product' => 'required',
+        $validatedData = $request->validate([
+            'user_id' => 'required|unique:posts|max:255',
+            'product_id' => 'required',
         ]);
 
-        $data = $request->all();
+        $user = User::find($request->user_id);
 
         try {
 
-            $cart = $this->cart->create($data['cart']);
+            $cart = $user->cart()->attach($request->product_id);
 
             return response()->json(
                 Msg::getSucess("Produto inserido no carrinho com sucesso!"),
@@ -49,7 +38,9 @@ class CartController extends Controller
     {
         try {
 
-            $product = Products::where('id_user',$id_user);
+            $user = User::find($id_user);
+
+            $product = $user->cart;
 
             if ($product) {
                 return response(new ProductResource($product));
@@ -68,11 +59,11 @@ class CartController extends Controller
 
     }
 
-    public function destroy($id)
+    public function destroy($id_user, $id_product)
     {
-        $cart = $this->cart->find($id);
+        $user = User::find($id_user);
 
-        $cart->delete();
+        $user->cart()->detach($id_product);
 
         return response()->json(
             Msg::getSucess("Produto foi removido do carrinho com sucesso!"),
@@ -83,9 +74,9 @@ class CartController extends Controller
 
     public function destroyAll($id_user)
     {
-        $cart = $this->cart->where('id_user',$id_user);
+        $user = User::find($id_user);
 
-        $cart->delete();
+        $user->cart()->detach();
 
         return response()->json(
             Msg::getSucess("O carrinho foi esvaziado com sucesso!"),

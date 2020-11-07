@@ -8,30 +8,30 @@ use App\Products;
 
 class BookmarkController extends Controller
 {
-    private $bookmark;
-
-    /**
-    * Create a new bookmark instance.
-    *
-    * @return void
-    */
-    public function __construct(Bookmark $bookmark)
-    {
-        $this->bookmark = $bookmark;
-    }
+    // private $bookmark;
+    //
+    // /**
+    // * Create a new bookmark instance.
+    // *
+    // * @return void
+    // */
+    // public function __construct(Bookmark $bookmark)
+    // {
+    //     $this->bookmark = $bookmark;
+    // }
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'cart.id_user' => 'required',
-            'cart.id_product' => 'required',
+        $validatedData = $request->validate([
+            'user_id' => 'required|unique:posts|max:255',
+            'product_id' => 'required',
         ]);
 
-        $data = $request->all();
+        $user = User::find($request->user_id);
 
         try {
 
-            $bookmark = $this->bookmark->create($data['bookmark']);
+            $bookmark = $user->bookmark()->attach($request->product_id);
 
             return response()->json(
                 Msg::getSucess("Produto favoritado com sucesso!"),
@@ -50,7 +50,9 @@ class BookmarkController extends Controller
     {
         try {
 
-            $product = Products::where('id_user',$id_user);
+            $user = User::find($id_user);
+
+            $product = $user->bookmark;
 
             if ($product) {
                 return response(new ProductResource($product));
@@ -69,11 +71,11 @@ class BookmarkController extends Controller
 
     }
 
-    public function destroy($id)
+    public function destroy($id_user, $id_product)
     {
-        $bookmark = $this->bookmark->find($id);
+        $user = User::find($id_user);
 
-        $bookmark->delete();
+        $user->bookmark()->detach($id_product);
 
         return response()->json(
             Msg::getSucess("Produto foi desfavoritado com sucesso!"),
@@ -84,9 +86,9 @@ class BookmarkController extends Controller
 
     public function destroyAll($id_user)
     {
-        $bookmark = $this->bookmark->where('id_user',$id_user);
+        $user = User::find($id_user);
 
-        $bookmark->delete();
+        $user->bookmark()->detach();
 
         return response()->json(
             Msg::getSucess("Os favoritos foram eliminados com sucesso!"),

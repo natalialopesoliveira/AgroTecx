@@ -57,7 +57,7 @@ class UserController extends Controller
             $user = $this->user->where('email', '=', $data['email'])->first();
 
             if ($user->password === $data['password']) {
-                return response()->json(true, 200);
+                return response()->json($user->id, 200);
             }
 
             return response()->json("Erro login", 404);

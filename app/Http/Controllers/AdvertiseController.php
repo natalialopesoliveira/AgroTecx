@@ -21,12 +21,12 @@ class AdvertiseController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'advertise.title' => 'required',
-            'advertise.id_user' => 'required',
-            'advertise.status' => 'required',
-            'advertise.description' => 'required',
-            'advertise.price' => 'required'
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'id_user' => 'required',
+            'status' => 'required',
+            'description' => 'required',
+            'price' => 'required'
         ]);
 
         $data = $request->all();
@@ -50,12 +50,12 @@ class AdvertiseController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
-            'advertise.title' => 'required',
-            'advertise.id_user' => 'required',
-            'advertise.status' => 'required',
-            'advertise.description' => 'required',
-            'advertise.price' => 'required'
+        $validatedData = $request->validate([
+            'title' => 'required',
+            'id_user' => 'required',
+            'status' => 'required',
+            'description' => 'required',
+            'price' => 'required'
         ]);
 
         $data = $request->all();

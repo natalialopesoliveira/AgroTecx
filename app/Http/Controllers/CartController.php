@@ -11,7 +11,7 @@ class CartController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'user_id' => 'required|unique:posts|max:255',
+            'user_id' => 'required',
             'product_id' => 'required',
         ]);
 

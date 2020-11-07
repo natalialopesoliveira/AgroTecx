@@ -22,12 +22,10 @@ class CreditCardController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'creditcard.cvc' => 'required',
-            'creditcard.expiry' => 'required',
-            'creditcard.name' => 'required',
-            'creditcard.number' => 'required',
-            'creditcard.id_user' => 'required'
+        $validatedData = $request->validate([
+            'card_number' => 'required',
+            'card_name' => 'required',
+            'id_user' => 'required'
         ]);
 
         $data = $request->all();
@@ -75,12 +73,10 @@ class CreditCardController extends Controller
     public function update($id, Request $request)
     {
 
-        $this->validate($request, [
-            'creditcard.cvc' => 'required',
-            'creditcard.expiry' => 'required',
-            'creditcard.name' => 'required',
-            'creditcard.number' => 'required',
-            'creditcard.id_user' => 'required'
+        $validatedData = $request->validate([
+            'card_number' => 'required',
+            'card_name' => 'required',
+            'id_user' => 'required'
         ]);
 
         $data = $request->all();
@@ -117,7 +113,4 @@ class CreditCardController extends Controller
 
     }
 
-    public function check(){
-        //NOIDEA
-    }
 }

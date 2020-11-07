@@ -15,8 +15,8 @@ class Bookmark extends Migration
     {
         Schema::create('bookmark', function (Blueprint $table) {
             $table->id();
-            $table->longText('product');
             $table->foreign('id_user')->references('id')->on('users');
+            $table->foreign('id_product')->references('id')->on('products');
             $table->timestamps();
         });
     }

@@ -9,7 +9,6 @@ class Bookmark extends Model
     protected $table = 'bookmark';
 
     protected $fillable = [
-        'product'
     ];
 
     public function user()

@@ -35,10 +35,10 @@ $router->group(['prefix' => 'product'], function () use ($router) {
 });
 $router->group(['prefix' => 'bookmark'], function () use ($router) {
 
-    $router->post('/', 'BookmarktController@store');
-    $router->get('/{id}', 'BookmarktController@show');
-    $router->put('/{id}', 'BookmarktController@update');
-    $router->delete('/{id}', 'BookmarktController@destroy');
+    $router->post('/', 'BookmarkController@store');
+    $router->get('/{id}', 'BookmarkController@show');
+    $router->put('/{id}', 'BookmarkController@update');
+    $router->delete('/{id}', 'BookmarkController@destroy');
 });
 
 $router->group(['prefix' => 'credit'], function () use ($router) {

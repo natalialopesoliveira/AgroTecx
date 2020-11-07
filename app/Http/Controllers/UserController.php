@@ -53,12 +53,11 @@ class UserController extends Controller
         try {
 
             $data = $request->all();
-            
-            dd($data['email']);
-            $user = $this->user->where('email', $data['email']);
+
+            $user = $this->user->where('email', '=', $data['email'])->first();
 
             if ($user->password === $data['password']) {
-                return response()->json(true, 200);
+                return response()->json($user->id, 200);
             }
 
             return response()->json("Erro login", 404);
@@ -80,7 +79,6 @@ class UserController extends Controller
 
             return response()->json("Usuário cadastrado com sucesso!", 200);
         } catch (\Exception $e) {
-            return $e->getMessage();
             return response()->json("Ocorreu um erro no cadastro, contate o administrador", 500);
         }
     }

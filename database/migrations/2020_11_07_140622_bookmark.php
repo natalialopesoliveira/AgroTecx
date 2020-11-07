@@ -13,7 +13,12 @@ class Bookmark extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('bookmark', function (Blueprint $table) {
+            $table->id();
+            $table->longText('product');
+            $table->foreign('id_user')->references('id')->on('users');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +28,6 @@ class Bookmark extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('bookmark');
     }
 }

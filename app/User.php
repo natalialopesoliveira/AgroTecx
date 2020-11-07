@@ -9,20 +9,21 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
-    
-    protected $table = 'user';
+
+    protected $table = 'users';
 
     protected $fillable = [
-        'nome',
+        'name',
         'email',
-        'empresa',
-        'segmento',
-        'senha',
-        'estado'
+        'company',
+        'role',
+        'password',
+        'state'
     ];
 
     protected $hidden = [
-        'senha'
+        'id',
+        'password'
     ];
 
     public function advertise()
@@ -30,18 +31,28 @@ class User extends Authenticatable
         return $this->hasMany(Advertise::class);
     }
 
-    public function bookmark()
-    {
-        return $this->hasMany(Bookmark::class);
-    }
-
     public function creditCard()
     {
         return $this->hasOne(CreditCard::class);
     }
 
+    public function bookmark()
+    {
+        return $this->belongsToMany(
+            Products::class,
+            'bookmark',
+            'user_id',
+            'product_id'
+        );
+    }
+
     public function cart()
     {
-        return $this->hasOne(Cart::class);
+        return $this->belongsToMany(
+            Products::class,
+            'cart',
+            'user_id',
+            'product_id'
+        );
     }
 }

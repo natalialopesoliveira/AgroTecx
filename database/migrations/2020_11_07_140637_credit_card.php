@@ -17,7 +17,8 @@ class CreditCard extends Migration
             $table->id();
             $table->text('card_number');
             $table->text('card_name');
-            $table->foreign('id_user')->references('id')->on('users');
+            $table->integer('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

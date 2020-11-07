@@ -16,7 +16,10 @@ class Products extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->text('title');
-            $table->foreign('id_user')->references('id')->on('users');
+            $table->string('user_id');
+            $table->boolean('status');
+            $table->decimal('price', 6, 2)->default(0);
+            $table->foreign('user_id')->references('id')->on('users');
             $table->longText('description');
             $table->timestamps();
         });

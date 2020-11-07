@@ -31,7 +31,6 @@ $router->group(['prefix' => 'product'], function () use ($router) {
     $router->put('/{id}', 'ProductController@update');
     $router->delete('/{id}', 'ProductController@destroy');
     $router->post('/pay', 'ProductController@pay');
-    $router->post('/check', 'ProductController@check');
 });
 $router->group(['prefix' => 'bookmark'], function () use ($router) {
 
@@ -42,9 +41,9 @@ $router->group(['prefix' => 'bookmark'], function () use ($router) {
 });
 
 $router->group(['prefix' => 'credit'], function () use ($router) {
-
-    $router->post('/', 'UserController@store');
-    $router->get('/{id}', 'UserController@show');
-    $router->put('/{id}', 'UserController@update');
-    $router->delete('/{id}', 'UserController@destroy');
+    $router->post('/', 'CreditCardController@store');
+    $router->get('/{id}', 'CreditCardController@show');
+    $router->put('/{id}', 'CreditCardController@update');
+    $router->delete('/{id}', 'CreditCardController@destroy');
+    $router->post('/check', 'CreditCardController@check');
 });

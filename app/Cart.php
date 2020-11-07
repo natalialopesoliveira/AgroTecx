@@ -4,17 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Anuncio extends Model
+class Cart extends Model
 {
+    protected $table = 'cart';
+
     protected $fillable = [
         'titulo',
         'id_empresa',
         'descricao_longa'
     ];
 
-    public function conta(){
-        return $this->belongsTo('App\Conta','id_empresa');
+    public function user()
+    {
+    	return $this->belongsTo(User::class);
     }
-
-
 }

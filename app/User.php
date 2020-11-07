@@ -9,31 +9,39 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
+    
+    protected $table = 'user';
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
-        'name', 'email', 'password',
+        'nome',
+        'email',
+        'empresa',
+        'segmento',
+        'senha',
+        'estado'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
-        'password', 'remember_token',
+        'senha'
     ];
 
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function advertise()
+    {
+        return $this->hasMany(Advertise::class);
+    }
+
+    public function bookmark()
+    {
+        return $this->hasOne(Bookmark::class);
+    }
+
+    public function creditCard()
+    {
+        return $this->hasOne(CreditCard::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
 }

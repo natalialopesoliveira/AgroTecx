@@ -22,8 +22,7 @@ class User extends Authenticatable
     ];
 
     protected $hidden = [
-        'id',
-        'password'
+        'id'
     ];
 
     public function advertise()

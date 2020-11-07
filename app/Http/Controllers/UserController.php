@@ -53,9 +53,8 @@ class UserController extends Controller
         try {
 
             $data = $request->all();
-            
-            dd($data['email']);
-            $user = $this->user->where('email', $data['email']);
+
+            $user = $this->user->where('email', '=', $data['email'])->first();
 
             if ($user->password === $data['password']) {
                 return response()->json(true, 200);

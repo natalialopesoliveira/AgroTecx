@@ -19,9 +19,8 @@ class Conta extends Model
         'senha'
     ];
 
-    public function anuncios()
-    {
-        return $this->hasMany('App\Anuncio');
+    public function anuncios(){
+        return $this->hasMany('App\Anuncio','id_empresa');
     }
 
 

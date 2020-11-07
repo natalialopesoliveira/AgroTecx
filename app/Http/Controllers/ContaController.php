@@ -33,7 +33,7 @@ class ContaController extends Controller
 
     public function edit(Request $request, $idConta)
     {
-       $conta = Conta::find($idPrecoEspecial);
+       $conta = Conta::find($idConta);
        $conta->nome= $request->nome;
        $conta->email= $request->email;
        $conta->empresa= $request->empresa;

@@ -8,13 +8,12 @@ class Anuncio extends Model
 {
     protected $fillable = [
         'titulo',
-        'id_empresa'
+        'id_empresa',
         'descricao_longa'
     ];
 
-    public function conta()
-    {
-        return $this->belongsTo('App\Conta');
+    public function conta(){
+        return $this->belongsTo('App\Conta','id_empresa');
     }
 
 

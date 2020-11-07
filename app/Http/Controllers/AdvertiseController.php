@@ -22,9 +22,10 @@ class AdvertiseController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'advertise.titulo' => 'required',
-            'advertise.id_empresa' => 'required',
-            'advertise.descricao_longa' => 'required'
+            'advertise.title' => 'required',
+            'advertise.id_user' => 'required',
+            'advertise.description' => 'required',
+            'advertise.price' => 'required'
         ]);
 
         $data = $request->all();
@@ -49,10 +50,10 @@ class AdvertiseController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'advertise.titulo' => 'required',
-            'advertise.id_empresa' => 'required',
-            'advertise.descricao_longa' => 'required'
-            'advertise.preco' => 'required'
+            'advertise.title' => 'required',
+            'advertise.id_user' => 'required',
+            'advertise.description' => 'required',
+            'advertise.price' => 'required'
         ]);
 
         $data = $request->all();
@@ -96,7 +97,7 @@ class AdvertiseController extends Controller
 
         //Caso apenas o filtro nome esteja preenchido
         }else if(is_null($request->estado)){
-            $advertise = Products::where('titulo', 'LIKE', '%'.$request->nome.'%')->orWhere('descricao_longa', 'LIKE', '%'.$request->nome.'%')->get();
+            $advertise = Products::where('title', 'LIKE', '%'.$request->nome.'%')->orWhere('description', 'LIKE', '%'.$request->nome.'%')->get();
 
         //Caso apenas o filtro de estado esteja preenchido
         }else if(is_null($request->nome)){
@@ -105,7 +106,7 @@ class AdvertiseController extends Controller
         //Caso o filtro de estado e nome estejam preenchidos
         }else{
             $advertise = Products::join('users', 'state', $request->estado)->where(function($query) {
-                $query->where('titulo', 'LIKE', '%'.$request->nome.'%')->orWhere('descricao_longa', 'LIKE', '%'.$request->nome.'%');
+                $query->where('title', 'LIKE', '%'.$request->nome.'%')->orWhere('description', 'LIKE', '%'.$request->nome.'%');
             })->get();
         }
 

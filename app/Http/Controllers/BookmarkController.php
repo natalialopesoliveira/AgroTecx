@@ -11,7 +11,7 @@ class BookmarkController extends Controller
     private $bookmark;
 
     /**
-    * Create a new cart instance.
+    * Create a new bookmark instance.
     *
     * @return void
     */

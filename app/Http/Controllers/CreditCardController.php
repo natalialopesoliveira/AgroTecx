@@ -11,7 +11,7 @@ class CreditCardController extends Controller
     private $creditcard;
 
     /**
-    * Create a new advertise instance.
+    * Create a new credit card instance.
     *
     * @return void
     */

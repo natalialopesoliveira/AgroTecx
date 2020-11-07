@@ -36,7 +36,7 @@ $router->group(['prefix' => 'bookmark'], function () use ($router) {
 
     $router->post('/', 'BookmarkController@store');
     $router->get('/{id}', 'BookmarkController@show');
-    $router->put('/{id}', 'BookmarkController@update');
+    $router->put('/{id}', 'BookmarkController@update'); // DUVIDA: necessário?
     $router->delete('/{id}', 'BookmarkController@destroy');
 });
 

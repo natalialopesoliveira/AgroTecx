@@ -2,10 +2,9 @@
 
 namespace App\Http\Resources;
 
-use App\Advertise;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AdvertiseResource extends JsonResource
+class ProductResource extends JsonResource
 {
     /**
     * Transform the resource into an array.
@@ -15,6 +14,7 @@ class AdvertiseResource extends JsonResource
     */
     public function toArray($request)
     {
+        // return parent::toArray($request);
         return [
             "titulo" => $this->titulo,
             "id_empresa" => $this->id_empresa,

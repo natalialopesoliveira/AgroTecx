@@ -3,20 +3,21 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Cart;
+use App\Bookmark;
+use App\Products;
 
-class CartController extends Controller
+class BookmarkController extends Controller
 {
-    private $cart;
+    private $bookmark;
 
     /**
     * Create a new cart instance.
     *
     * @return void
     */
-    public function __construct(Cart $cart)
+    public function __construct(Bookmark $bookmark)
     {
-        $this->cart = $cart;
+        $this->bookmark = $bookmark;
     }
 
     public function store(Request $request)
@@ -30,15 +31,15 @@ class CartController extends Controller
 
         try {
 
-            $cart = $this->cart->create($data['cart']);
+            $bookmark = $this->bookmark->create($data['bookmark']);
 
             return response()->json(
-                Msg::getSucess("Produto inserido no carrinho com sucesso!"),
+                Msg::getSucess("Produto favoritado com sucesso!"),
                 200
             );
         } catch (\Exception $e) {
             return response()->json(
-                Msg::getError("Ocorreu um erro ao inserir produto no carrinho, contate o administrador"),
+                Msg::getError("Ocorreu um erro ao favoritar produto, contate o administrador"),
                 500
             );
         }
@@ -56,7 +57,7 @@ class CartController extends Controller
             }
 
             return response()->json(
-                Msg::getError("Não há produtos no carrinho"),
+                Msg::getError("Não há produtos favoritados"),
                 404
             );
         } catch (\Exception $e) {
@@ -70,12 +71,12 @@ class CartController extends Controller
 
     public function destroy($id)
     {
-        $cart = $this->cart->find($id);
+        $bookmark = $this->bookmark->find($id);
 
-        $cart->delete();
+        $bookmark->delete();
 
         return response()->json(
-            Msg::getSucess("Produto foi removido do carrinho com sucesso!"),
+            Msg::getSucess("Produto foi desfavoritado com sucesso!"),
             200
         );
 
@@ -83,12 +84,12 @@ class CartController extends Controller
 
     public function destroyAll($id_user)
     {
-        $cart = $this->cart->where('id_user',$id_user);
+        $bookmark = $this->bookmark->where('id_user',$id_user);
 
-        $cart->delete();
+        $bookmark->delete();
 
         return response()->json(
-            Msg::getSucess("O carrinho foi esvaziado com sucesso!"),
+            Msg::getSucess("Os favoritos foram eliminados com sucesso!"),
             200
         );
 

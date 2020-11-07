@@ -30,4 +30,19 @@ class ContaController extends Controller
 
         // return view('....', compact('contas'));
     }
+
+    public function edit(Request $request, $idConta)
+    {
+       $conta = Conta::find($idPrecoEspecial);
+       $conta->nome= $request->nome;
+       $conta->email= $request->email;
+       $conta->empresa= $request->empresa;
+       $conta->segmento= $request->segmento;
+       $conta->estado= $request->estado;
+       $conta->senha= $request->senha;
+
+       $conta->save();
+
+        // return view('....', compact('contas'));
+    }
 }

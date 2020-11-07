@@ -16,7 +16,7 @@ class CreateAnunciosTable extends Migration
         Schema::create('anuncios', function (Blueprint $table) {
             $table->id();
             $table->text('titulo');
-            $table->foreign('id_empresa')->references('id')->on('contas');
+            $table->foreign('id_empresa')->references('id')->on('conta');
             $table->text('descricao_longa');
             $table->timestamps();
         });

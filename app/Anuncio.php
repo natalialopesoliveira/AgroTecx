@@ -8,6 +8,7 @@ class Anuncio extends Model
 {
     protected $fillable = [
         'titulo',
+        'id_empresa'
         'descricao_longa'
     ];
 

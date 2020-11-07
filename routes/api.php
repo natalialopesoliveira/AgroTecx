@@ -24,15 +24,16 @@ $router->group(['prefix' => 'user'], function () use ($router) {
     $router->delete('/{id}', 'UserController@destroy');
 });
 
-// $router->group(['prefix' => 'product'], function () use ($router) {
+$router->group(['prefix' => 'product'], function () use ($router) {
 
-//     $router->get('/', 'ProductController@index');
-//     $router->post('/', 'ProductController@store');
-//     $router->get('/{id}', 'ProductController@show');
-//     $router->put('/{id}', 'ProductController@update');
-//     $router->delete('/{id}', 'ProductController@destroy');
-//     $router->post('/pay', 'ProductController@pay');
-// });
+    // $router->get('/', 'ProductController@index');
+    $router->post('/', 'ProductController@store');
+    $router->get('/{id}', 'ProductController@show');
+    $router->put('/{id}', 'ProductController@update');
+    $router->delete('/{id}', 'ProductController@destroy');
+    $router->post('/pay', 'ProductController@pay');
+});
+
 // $router->group(['prefix' => 'bookmark'], function () use ($router) {
 
 //     $router->post('/', 'BookmarkController@store');

@@ -13,7 +13,13 @@ class CreditCard extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('credit_card', function (Blueprint $table) {
+            $table->id();
+            $table->text('card_number');
+            $table->text('card_name');
+            $table->foreign('id_user')->references('id')->on('users');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +29,6 @@ class CreditCard extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('credit_card');
     }
 }

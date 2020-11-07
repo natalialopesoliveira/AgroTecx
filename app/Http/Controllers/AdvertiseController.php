@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Advertise;
+use App\Products;
 
 class AdvertiseController extends Controller
 {
@@ -14,7 +14,7 @@ class AdvertiseController extends Controller
     *
     * @return void
     */
-    public function __construct(Advertise $advertise)
+    public function __construct(Products $advertise)
     {
         $this->advertise = $advertise;
     }
@@ -44,8 +44,6 @@ class AdvertiseController extends Controller
             );
         }
 
-        return response(new StatusResource($statusObj));
-
     }
 
     public function update(Request $request, $advertise)
@@ -74,7 +72,6 @@ class AdvertiseController extends Controller
             );
         }
 
-        return response(new StatusResource($statusObj));
     }
 
     public function destroy($advertise)
@@ -94,10 +91,11 @@ class AdvertiseController extends Controller
     {
         // Ver como ele está passando o filtro
 
-        $advertise = Advertise::join('contas', 'estado', $estado)->where(function($query) {
-            $query->where('titulo', 'LIKE', '%'.$nome.'%')->orWhere('descricao_longa', 'LIKE', '%'.$nome.'%');
+        $advertise = Products::join('contas', 'estado', $request->estado)->where(function($query) {
+            $query->where('titulo', 'LIKE', '%'.$request->nome.'%')->orWhere('descricao_longa', 'LIKE', '%'.$request->nome.'%');
         })->get();
 
         return response(new AdvertiseResource($advertise));
 
     }
+}

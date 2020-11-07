@@ -32,7 +32,7 @@ class User extends Authenticatable
 
     public function bookmark()
     {
-        return $this->hasOne(Bookmark::class);
+        return $this->hasMany(Bookmark::class);
     }
 
     public function creditCard()

@@ -13,7 +13,13 @@ class Advertise extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('advertise', function (Blueprint $table) {
+            $table->id();
+            $table->text('title');
+            $table->foreign('id_user')->references('id')->on('users');
+            $table->longText('description');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +29,6 @@ class Advertise extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('advertise');
     }
 }

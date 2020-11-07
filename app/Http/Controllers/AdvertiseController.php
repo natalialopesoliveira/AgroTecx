@@ -44,9 +44,11 @@ class AdvertiseController extends Controller
             );
         }
 
+        return response(new StatusResource($statusObj));
+
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $advertise)
     {
         $this->validate($request, [
             'advertise.titulo' => 'required',
@@ -58,7 +60,7 @@ class AdvertiseController extends Controller
 
         try {
 
-            $advertise = $this->advertise->findOrFail($id);
+            $advertise = $this->advertise->findOrFail($advertise);
             $advertise->update($data['advertise']);
 
             return response()->json(
@@ -71,30 +73,31 @@ class AdvertiseController extends Controller
                 500
             );
         }
+
+        return response(new StatusResource($statusObj));
     }
-}
 
-public function destroy($id)
-{
-    $advertise = $this->advertise->find($id);
+    public function destroy($advertise)
+    {
+        $advertise = $this->advertise->find($advertise);
 
-    $advertise->delete();
+        $advertise->delete();
 
-    return response()->json(
-        Msg::getSucess("Anúncio foi removido com sucesso!"),
-        200
-    );
-}
+        return response()->json(
+            Msg::getSucess("Anúncio foi removido com sucesso!"),
+            200
+        );
 
-public function show(Request $request)
-{
+    }
 
-    $advertise = Advertise::join('contas', 'estado', $estado)->where(function($q) {
-        $q->where('titulo', 'LIKE', '%'.$snome.'%')->orWhere('descricao_longa', 'LIKE', '%'.$snome.'%');
-    })->get();
+    public function show(Request $request)
+    {
+        // Ver como ele está passando o filtro
 
+        $advertise = Advertise::join('contas', 'estado', $estado)->where(function($query) {
+            $query->where('titulo', 'LIKE', '%'.$nome.'%')->orWhere('descricao_longa', 'LIKE', '%'.$nome.'%');
+        })->get();
 
-    // return redirect('/...');
-}
+        return response(new AdvertiseResource($advertise));
 
-}
+    }

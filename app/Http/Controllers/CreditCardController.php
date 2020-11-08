@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\CreditCard;
-use App\Http\Resources\CreditCardResource;
 
 class CreditCardController extends Controller
 {
@@ -42,18 +41,18 @@ class CreditCardController extends Controller
             $creditcard = $this->creditcard->where('user_id', '=', $user_id)->get();
 
             if ($creditcard) {
-                return response(new CreditCardResource($creditcard));
+                return response($creditcard);
             }
 
             return response()->json("Cartão de crédito não encontrado", 404);
         } catch (\Exception $e) {
+            return $e->getMessage();
             return response()->json("Ocorreu um erro na busca, contate o administrador", 500);
         }
     }
 
     public function update($card_id, Request $request)
     {
-
         try {
             $data = $request->all();
 

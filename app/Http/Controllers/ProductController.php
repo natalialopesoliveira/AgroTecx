@@ -25,18 +25,20 @@ class ProductController extends Controller
     {
 
         try {
-            $path = storage_path('app\public\\products\\' . $user_id . '\\');
+            if ($request->file) {
+                $path = storage_path('app\public\\products\\' . $user_id . '\\');
 
-            if (!file_exists($path)) {
-                mkdir($path, 666, true);
+                if (!file_exists($path)) {
+                    mkdir($path, 666, true);
+                }
+                $filename = $path . 'product' . '.jpg';
+                Image::make($request->file)->save($filename);
+
+                $data = $request->except('file');
+                $data['file'] = $filename;
             }
-            $filename = $path . 'product' . '.jpg';
-            Image::make($request->file)->save($filename);
-
-            $data = $request->except('file');
-            $data['file'] = $filename;
-
-            $this->product->create($data['product']);
+            
+            $this->product->create($data);
 
             return response()->json("Produto cadastrado com sucesso!", 200);
         } catch (\Exception $e) {
@@ -48,16 +50,19 @@ class ProductController extends Controller
     {
 
         try {
-            $path = storage_path('app\public\\products\\' . $user_id . '\\');
+            if ($request->file) {
 
-            if (!file_exists($path)) {
-                mkdir($path, 666, true);
+                $path = storage_path('app\public\\products\\' . $user_id . '\\');
+
+                if (!file_exists($path)) {
+                    mkdir($path, 666, true);
+                }
+                $filename = $path . 'product' . '.jpg';
+                Image::make($request->file)->save($filename);
+
+                $data = $request->except('file');
+                $data['file'] = $filename;
             }
-            $filename = $path . 'product' . '.jpg';
-            Image::make($request->file)->save($filename);
-
-            $data = $request->except('file');
-            $data['file'] = $filename;
 
             $product = $this->product->findOrFail($product_id);
             $product->update($data);

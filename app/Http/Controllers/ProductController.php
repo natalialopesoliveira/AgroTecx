@@ -34,14 +34,17 @@ class ProductController extends Controller
                 $filename = $path . 'product' . '.jpg';
                 Image::make($request->file)->save($filename);
 
-                $data = $request->except('file');
                 $data['file'] = $filename;
             }
-            
+
+            $data = $request->except('file');
+            $data['user_id'] = $user_id;
+
             $this->product->create($data);
 
             return response()->json("Produto cadastrado com sucesso!", 200);
         } catch (\Exception $e) {
+            return $e->getMessage();
             return response()->json("Ocorreu um erro no cadastro, contate o administrador", 500);
         }
     }
@@ -82,7 +85,26 @@ class ProductController extends Controller
         return response()->json("Produto foi removido com sucesso!", 200);
     }
 
-    public function show($user_id, $product_id, Request $request)
+    public function show($user_id, $product_id)
+    {
+        try {
+
+            $product = $this->product->find($product_id);
+
+            if ($product) {
+                return response()->json($product, 200);
+            }
+
+            return response()->json("Produto nao encontrado", 404);
+        } catch (\Exception $e) {
+            return response()->json(
+                "Ocorreu um erro na busca, contate o administrador",
+                500
+            );
+        }
+    }
+
+    public function teste($user_id, $product_id, Request $request)
     {
         $data = $request->all();
         //Caso os filtros estejam vazios

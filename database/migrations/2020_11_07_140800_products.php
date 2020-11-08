@@ -16,7 +16,7 @@ class Products extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->text('title');
-            $table->text('file');
+            $table->text('file')->nullable($value = true);
             $table->string('user_id');
             $table->boolean('status');
             $table->decimal('price', 6, 2)->default(0);

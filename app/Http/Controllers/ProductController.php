@@ -114,30 +114,6 @@ class ProductController extends Controller
         }
     }
 
-    public function teste($user_id, $product_id, Request $request)
-    {
-        $data = $request->all();
-        //Caso os filtros estejam vazios
-        if (is_null($data['estado']) && is_null($data['nome'])) {
-            $product = Products::all();
-
-            //Caso apenas o filtro nome esteja preenchido
-        } else if (is_null($data['estado'])) {
-            $product = Products::where('title', 'LIKE', '%' . $data['nome'] . '%')->orWhere('description', 'LIKE', '%' . $data['nome'] . '%')->get();
-
-            //Caso apenas o filtro de estado esteja preenchido
-        } else if (is_null($data['nome'])) {
-            $product = Products::join('users', 'state', $request->estado)->get();
-
-            //Caso o filtro de estado e nome estejam preenchidos
-        } else {
-            $product = Products::join('users', 'state', $request->estado)->where(function ($query) {
-                $query->where('title', 'LIKE', '%' . $data['nome'] . '%')->orWhere('description', 'LIKE', '%' . $data['nome'] . '%');
-            })->get();
-        }
-        return response(new ProductResource($product));
-    }
-
     public function pay($user_id, $product_id)
     {
     }

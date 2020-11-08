@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\CreditCard;
+use App\Http\Resources\CreditCardResource;
 
 class CreditCardController extends Controller
 {
@@ -11,10 +12,10 @@ class CreditCardController extends Controller
     private $creditcard;
 
     /**
-    * Create a new credit card instance.
-    *
-    * @return void
-    */
+     * Create a new credit card instance.
+     *
+     * @return void
+     */
     public function __construct(CreditCard $creditcard)
     {
         $this->creditcard = $creditcard;
@@ -22,95 +23,55 @@ class CreditCardController extends Controller
 
     public function store($user_id, Request $request)
     {
-        $validatedData = $request->validate([
-            'card_number' => 'required',
-            'card_name' => 'required',
-            'id_user' => 'required'
-        ]);
-
-        $data = $request->all();
-
+        
         try {
+            $data = $request->all();
+            $data['user_id'] = $user_id;
 
-            $creditcard = $this->creditcard->create($data['creditcard']);
+            $this->creditcard->create($data);
 
-            return response()->json(
-                "Cartão de crédito cadastrado com sucesso!",
-                200
-            );
+            return response()->json("Cartão de crédito cadastrado com sucesso!", 200);
         } catch (\Exception $e) {
-            return response()->json(
-                "Ocorreu um erro no cadastro, contate o administrador",
-                500
-            );
+            return response()->json("Ocorreu um erro no cadastro, contate o administrador", 500);
         }
-
     }
 
-    public function show($user_id, $card_id)
+    public function show($user_id)
     {
         try {
-
-            $creditcard = $this->creditcard->find($id);
+            $creditcard = $this->creditcard->where('user_id', '=', $user_id)->get();
 
             if ($creditcard) {
                 return response(new CreditCardResource($creditcard));
             }
 
-            return response()->json(
-                "Cartão de crédito não encontrado",
-                404
-            );
+            return response()->json("Cartão de crédito não encontrado", 404);
         } catch (\Exception $e) {
-            return response()->json(
-                "Ocorreu um erro na busca, contate o administrador",
-                500
-            );
+            return response()->json("Ocorreu um erro na busca, contate o administrador", 500);
         }
-
     }
 
     public function update($card_id, Request $request)
     {
 
-        $validatedData = $request->validate([
-            'card_number' => 'required',
-            'card_name' => 'required',
-            'id_user' => 'required'
-        ]);
-
-        $data = $request->all();
-
         try {
+            $data = $request->all();
 
-            $creditcard = $this->creditcard->findOrFail($creditcard);
-            $creditcard->update($data['creditcard']);
+            $creditcard = $this->creditcard->findOrFail($card_id);
+            $creditcard->update($data);
 
-
-            return response()->json(
-                "Cartão de crédito atualizado com sucesso!",
-                200
-            );
+            return response()->json("Cartão de crédito atualizado com sucesso!", 200);
         } catch (\Exception $e) {
-            return response()->json(
-                "Ocorreu um erro na atualização, contate o administrador",
-                500
-            );
+            return response()->json("Ocorreu um erro na atualização, contate o administrador", 500);
         }
-
     }
 
-    public function destroy($id)
+    public function destroy($card_id)
     {
-        $creditcard = $this->creditcard->find($creditcard);
+        $creditcard = $this->creditcard->find($card_id);
 
         $creditcard->delete();
 
-        return response()->json(
-            "Cartão de crédito foi removido com sucesso!",
-            200
-        );
-
+        return response()->json("Cartão de crédito foi removido com sucesso!", 200);
     }
-
 }

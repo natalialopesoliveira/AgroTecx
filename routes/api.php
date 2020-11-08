@@ -47,7 +47,7 @@ $router->group(['prefix' => '/user/{user_id}/bookmark'], function () use ($route
 
 $router->group(['prefix' => '/user/{user_id}/credit'], function () use ($router) {
     $router->post('/', 'CreditCardController@store');
-    $router->get('/{credit_id}', 'CreditCardController@show');
+    $router->get('/', 'CreditCardController@show');
     $router->put('/{credit_id}', 'CreditCardController@update');
     $router->delete('/{credit_id}', 'CreditCardController@destroy');
     $router->post('/check', 'CreditCardController@check');

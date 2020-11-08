@@ -24,28 +24,28 @@ $router->group(['prefix' => 'user'], function () use ($router) {
     $router->delete('/{id}', 'UserController@destroy');
 });
 
-$router->group(['prefix' => 'product'], function () use ($router) {
+$router->group(['prefix' => '/user/{user_id}/product'], function () use ($router) {
 
     $router->get('/', 'ProductController@index');
-    $router->post('/', 'ProductController@store');
-    $router->get('/{id}', 'ProductController@show');
-    $router->put('/{id}', 'ProductController@update');
-    $router->delete('/{id}', 'ProductController@destroy');
-    $router->post('/{$id}/pay', 'ProductController@pay');
+    $router->post('/{product_id}', 'ProductController@store');
+    $router->get('/{product_id}', 'ProductController@show');
+    $router->put('/{product_id}', 'ProductController@update');
+    $router->delete('/{product_id}', 'ProductController@destroy');
+    $router->post('/{product_id}/pay', 'ProductController@pay');
 });
 
-$router->group(['prefix' => 'bookmark'], function () use ($router) {
+$router->group(['prefix' => '/user/{user_id}/bookmark'], function () use ($router) {
 
      $router->post('/', 'BookmarkController@store');
-     $router->get('/{id}', 'BookmarkController@show');
-     $router->put('/{id}', 'BookmarkController@update');
-     $router->delete('/{id}', 'BookmarkController@destroy');
+     $router->get('/{bookmark_id}', 'BookmarkController@show');
+     $router->put('/{bookmark_id}', 'BookmarkController@update');
+     $router->delete('/{bookmark_id}', 'BookmarkController@destroy');
 });
 
- $router->group(['prefix' => 'credit'], function () use ($router) {
+ $router->group(['prefix' => '/user/{user_id}/credit'], function () use ($router) {
      $router->post('/', 'CreditCardController@store');
-     $router->get('/{id}', 'CreditCardController@show');
-     $router->put('/{id}', 'CreditCardController@update');
-     $router->delete('/{id}', 'CreditCardController@destroy');
+     $router->get('/{credit_id}', 'CreditCardController@show');
+     $router->put('/{credit_id}', 'CreditCardController@update');
+     $router->delete('/{credit_id}', 'CreditCardController@destroy');
      $router->post('/check', 'CreditCardController@check');
 });

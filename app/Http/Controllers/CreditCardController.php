@@ -20,7 +20,7 @@ class CreditCardController extends Controller
         $this->creditcard = $creditcard;
     }
 
-    public function store(Request $request)
+    public function store($user_id, Request $request)
     {
         $validatedData = $request->validate([
             'card_number' => 'required',
@@ -47,7 +47,7 @@ class CreditCardController extends Controller
 
     }
 
-    public function show($id)
+    public function show($user_id, $card_id)
     {
         try {
 
@@ -70,7 +70,7 @@ class CreditCardController extends Controller
 
     }
 
-    public function update($id, Request $request)
+    public function update($card_id, Request $request)
     {
 
         $validatedData = $request->validate([

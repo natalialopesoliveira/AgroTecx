@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 use App\Products;
 
 class ProductController extends Controller
@@ -19,7 +20,7 @@ class ProductController extends Controller
         $this->product = $product;
     }
 
-    public function store(Request $request)
+    public function store($user_id, Request $request)
     {
         $validatedData = $request->validate([
             'title' => 'required',
@@ -29,7 +30,9 @@ class ProductController extends Controller
             'price' => 'required'
         ]);
 
-        $data = $request->all();
+        $data = $request->except('file');
+        $caminho="public/products/".$request->id."/";
+        Image::make($request->file)->save($caminho);
 
         try {
 
@@ -48,7 +51,7 @@ class ProductController extends Controller
 
     }
 
-    public function update($id, Request $request)
+    public function update($user_id, $product_id, Request $request)
     {
         $validatedData = $request->validate([
             'title' => 'required',
@@ -58,11 +61,13 @@ class ProductController extends Controller
             'price' => 'required'
         ]);
 
-        $data = $request->all();
+        $data = $request->except('file');
+        $caminho="public/products/".$request->id."/";
+        Image::make($request->file)->save($caminho);
 
         try {
 
-            $product = $this->product->findOrFail($id);
+            $product = $this->product->findOrFail($product_id);
             $product->update($data['product']);
 
             return response()->json(
@@ -78,9 +83,9 @@ class ProductController extends Controller
 
     }
 
-    public function destroy($id)
+    public function destroy($user_id, $product_id)
     {
-        $product = $this->$product->find($id);
+        $product = $this->$product->findOrFail($product_id);
 
         $product->delete();
 
@@ -91,7 +96,7 @@ class ProductController extends Controller
 
     }
 
-    public function show(Request $request)
+    public function show($user_id, $product_id, Request $request)
     {
         //Caso os filtros estejam vazios
         if(is_null($request->estado) && is_null($request->nome)){
@@ -116,7 +121,7 @@ class ProductController extends Controller
 
     }
 
-    public function pay()
+    public function pay($user_id, $product_id)
     {
 
     }

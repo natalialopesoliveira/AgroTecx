@@ -20,7 +20,7 @@ class BookmarkController extends Controller
     //     $this->bookmark = $bookmark;
     // }
 
-    public function store(Request $request)
+    public function store($user_id, Request $request)
     {
         $validatedData = $request->validate([
             'user_id' => 'required',
@@ -46,11 +46,11 @@ class BookmarkController extends Controller
 
     }
 
-    public function show($id_user)
+    public function show($user_id)
     {
         try {
 
-            $user = User::find($id_user);
+            $user = User::find($user_id);
 
             $product = $user->bookmark;
 
@@ -71,11 +71,11 @@ class BookmarkController extends Controller
 
     }
 
-    public function destroy($id_user, $id_product)
+    public function destroy($user_id, $product_id)
     {
-        $user = User::find($id_user);
+        $user = User::find($user_id);
 
-        $user->bookmark()->detach($id_product);
+        $user->bookmark()->detach($product_id);
 
         return response()->json(
             Msg::getSucess("Produto foi desfavoritado com sucesso!"),
@@ -84,9 +84,9 @@ class BookmarkController extends Controller
 
     }
 
-    public function destroyAll($id_user)
+    public function destroyAll($user_id)
     {
-        $user = User::find($id_user);
+        $user = User::find($user_id);
 
         $user->bookmark()->detach();
 

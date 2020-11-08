@@ -23,6 +23,9 @@ $router->group(['prefix' => 'user'], function () use ($router) {
     $router->put('/{id}', 'UserController@update');
     $router->delete('/{id}', 'UserController@destroy');
 });
+$router->group(['prefix' => '/product'], function () use ($router) {
+    $router->get('/', 'ProductController@all');
+});
 
 $router->group(['prefix' => '/user/{user_id}/product'], function () use ($router) {
 
@@ -36,16 +39,16 @@ $router->group(['prefix' => '/user/{user_id}/product'], function () use ($router
 
 $router->group(['prefix' => '/user/{user_id}/bookmark'], function () use ($router) {
 
-     $router->post('/', 'BookmarkController@store');
-     $router->get('/{bookmark_id}', 'BookmarkController@show');
-     $router->put('/{bookmark_id}', 'BookmarkController@update');
-     $router->delete('/{bookmark_id}', 'BookmarkController@destroy');
+    $router->post('/', 'BookmarkController@store');
+    $router->get('/{bookmark_id}', 'BookmarkController@show');
+    $router->put('/{bookmark_id}', 'BookmarkController@update');
+    $router->delete('/{bookmark_id}', 'BookmarkController@destroy');
 });
 
- $router->group(['prefix' => '/user/{user_id}/credit'], function () use ($router) {
-     $router->post('/', 'CreditCardController@store');
-     $router->get('/{credit_id}', 'CreditCardController@show');
-     $router->put('/{credit_id}', 'CreditCardController@update');
-     $router->delete('/{credit_id}', 'CreditCardController@destroy');
-     $router->post('/check', 'CreditCardController@check');
+$router->group(['prefix' => '/user/{user_id}/credit'], function () use ($router) {
+    $router->post('/', 'CreditCardController@store');
+    $router->get('/{credit_id}', 'CreditCardController@show');
+    $router->put('/{credit_id}', 'CreditCardController@update');
+    $router->delete('/{credit_id}', 'CreditCardController@destroy');
+    $router->post('/check', 'CreditCardController@check');
 });

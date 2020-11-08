@@ -87,7 +87,7 @@ class UserController extends Controller
         try {
 
             $user = $this->user->findOrFail($user);
-            $user->update($data['user']);
+            $user->update($data);
 
 
             return response()->json("Usuário atualizado com sucesso!", 200);

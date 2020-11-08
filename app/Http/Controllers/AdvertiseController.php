@@ -36,12 +36,12 @@ class AdvertiseController extends Controller
             $advertise = $this->advertise->create($data['advertise']);
 
             return response()->json(
-                Msg::getSucess("Anúncio cadastrado com sucesso!"),
+                "Anúncio cadastrado com sucesso!",
                 200
             );
         } catch (\Exception $e) {
             return response()->json(
-                Msg::getError("Ocorreu um erro no cadastro, contate o administrador"),
+                "Ocorreu um erro no cadastro, contate o administrador",
                 500
             );
         }
@@ -66,12 +66,12 @@ class AdvertiseController extends Controller
             $advertise->update($data['advertise']);
 
             return response()->json(
-                Msg::getSucess("Anúncio atualizado com sucesso!"),
+                "Anúncio atualizado com sucesso!",
                 200
             );
         } catch (\Exception $e) {
             return response()->json(
-                Msg::getError("Ocorreu um erro na atualização, contate o administrador"),
+                "Ocorreu um erro na atualização, contate o administrador",
                 500
             );
         }
@@ -85,7 +85,7 @@ class AdvertiseController extends Controller
         $advertise->delete();
 
         return response()->json(
-            Msg::getSucess("Anúncio foi removido com sucesso!"),
+            "Anúncio foi removido com sucesso!",
             200
         );
 

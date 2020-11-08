@@ -32,10 +32,7 @@ class UserController extends Controller
             $user = $this->user->find($user);
 
             if ($user) {
-                return response()->json(
-                    ['Usuario' => $user],
-                    200
-                );
+                return response()->json($user, 200);
             }
 
             return response()->json("Usuário nao encontrado", 404);

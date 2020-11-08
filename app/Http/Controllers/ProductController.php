@@ -21,6 +21,11 @@ class ProductController extends Controller
         $this->product = $product;
     }
 
+    public function index($user_id)
+    {
+        return $this->product->where('user_id', '=', $user_id)->get();
+    }
+
     public function store($user_id, Request $request)
     {
 

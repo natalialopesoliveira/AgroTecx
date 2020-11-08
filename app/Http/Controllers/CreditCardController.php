@@ -35,12 +35,12 @@ class CreditCardController extends Controller
             $creditcard = $this->creditcard->create($data['creditcard']);
 
             return response()->json(
-                Msg::getSucess("Cartão de crédito cadastrado com sucesso!"),
+                "Cartão de crédito cadastrado com sucesso!",
                 200
             );
         } catch (\Exception $e) {
             return response()->json(
-                Msg::getError("Ocorreu um erro no cadastro, contate o administrador"),
+                "Ocorreu um erro no cadastro, contate o administrador",
                 500
             );
         }
@@ -58,12 +58,12 @@ class CreditCardController extends Controller
             }
 
             return response()->json(
-                Msg::getError("Cartão de crédito não encontrado"),
+                "Cartão de crédito não encontrado",
                 404
             );
         } catch (\Exception $e) {
             return response()->json(
-                Msg::getError("Ocorreu um erro na busca, contate o administrador"),
+                "Ocorreu um erro na busca, contate o administrador",
                 500
             );
         }
@@ -88,12 +88,12 @@ class CreditCardController extends Controller
 
 
             return response()->json(
-                Msg::getSucess("Cartão de crédito atualizado com sucesso!"),
+                "Cartão de crédito atualizado com sucesso!",
                 200
             );
         } catch (\Exception $e) {
             return response()->json(
-                Msg::getError("Ocorreu um erro na atualização, contate o administrador"),
+                "Ocorreu um erro na atualização, contate o administrador",
                 500
             );
         }
@@ -107,7 +107,7 @@ class CreditCardController extends Controller
         $creditcard->delete();
 
         return response()->json(
-            Msg::getSucess("Cartão de crédito foi removido com sucesso!"),
+            "Cartão de crédito foi removido com sucesso!",
             200
         );
 

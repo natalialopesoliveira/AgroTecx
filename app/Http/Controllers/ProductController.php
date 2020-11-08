@@ -25,8 +25,8 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'title' => 'required',
             'user_id' => 'required',
-            'status' => 'required'
-            'description' => 'required'
+            'status' => 'required',
+            'description' => 'required',
             'price' => 'required'
         ]);
 
@@ -39,12 +39,12 @@ class ProductController extends Controller
             $product = $this->product->create($data['product']);
 
             return response()->json(
-                Msg::getSucess("Produto cadastrado com sucesso!"),
+                "Produto cadastrado com sucesso!",
                 200
             );
         } catch (\Exception $e) {
             return response()->json(
-                Msg::getError("Ocorreu um erro no cadastro, contate o administrador"),
+                "Ocorreu um erro no cadastro, contate o administrador",
                 500
             );
         }
@@ -56,9 +56,9 @@ class ProductController extends Controller
         $validatedData = $request->validate([
             'title' => 'required',
             'user_id' => 'required',
-            'status' => 'required'
-            'description' => 'required'
-            'price' => 'required'
+            'status' => 'required',
+            'description' => 'required',
+            'price' => 'required',
         ]);
 
         $data = $request->except('file');
@@ -71,12 +71,12 @@ class ProductController extends Controller
             $product->update($data['product']);
 
             return response()->json(
-                Msg::getSucess("Produto atualizado com sucesso!"),
+                "Produto atualizado com sucesso!",
                 200
             );
         } catch (\Exception $e) {
             return response()->json(
-                Msg::getError("Ocorreu um erro na atualização, contate o administrador"),
+                "Ocorreu um erro na atualização, contate o administrador",
                 500
             );
         }
@@ -90,7 +90,7 @@ class ProductController extends Controller
         $product->delete();
 
         return response()->json(
-            Msg::getSucess("Produto foi removido com sucesso!"),
+            "Produto foi removido com sucesso!",
             200
         );
 
@@ -116,9 +116,7 @@ class ProductController extends Controller
                 $query->where('title', 'LIKE', '%'.$request->nome.'%')->orWhere('description', 'LIKE', '%'.$request->nome.'%');
             })->get();
         }
-
         return response(new ProductResource($product));
-
     }
 
     public function pay($user_id, $product_id)

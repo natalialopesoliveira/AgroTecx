@@ -12,7 +12,7 @@ class CartController extends Controller
     {
         $validatedData = $request->validate([
             'user_id' => 'required',
-            'product_id' => 'required',
+            'product_id' => 'required'
         ]);
 
         $user = User::find($request->user_id);
@@ -22,23 +22,23 @@ class CartController extends Controller
             $cart = $user->cart()->attach($request->product_id);
 
             return response()->json(
-                Msg::getSucess("Produto inserido no carrinho com sucesso!"),
+                "Produto inserido no carrinho com sucesso!",
                 200
             );
         } catch (\Exception $e) {
             return response()->json(
-                Msg::getError("Ocorreu um erro ao inserir produto no carrinho, contate o administrador"),
+                "Ocorreu um erro ao inserir produto no carrinho, contate o administrador",
                 500
             );
         }
 
     }
 
-    public function show($id_user)
+    public function show($user_id)
     {
         try {
 
-            $user = User::find($id_user);
+            $user = User::find($user_id);
 
             $product = $user->cart;
 
@@ -47,39 +47,39 @@ class CartController extends Controller
             }
 
             return response()->json(
-                Msg::getError("Não há produtos no carrinho"),
+                "Não há produtos no carrinho",
                 404
             );
         } catch (\Exception $e) {
             return response()->json(
-                Msg::getError("Ocorreu um erro na busca, contate o administrador"),
+                "Ocorreu um erro na busca, contate o administrador",
                 500
             );
         }
 
     }
 
-    public function destroy($id_user, $id_product)
+    public function destroy($user_id, $id_product)
     {
-        $user = User::find($id_user);
+        $user = User::find($user_id);
 
         $user->cart()->detach($id_product);
 
         return response()->json(
-            Msg::getSucess("Produto foi removido do carrinho com sucesso!"),
+            "Produto foi removido do carrinho com sucesso!",
             200
         );
 
     }
 
-    public function destroyAll($id_user)
+    public function destroyAll($user_id)
     {
-        $user = User::find($id_user);
+        $user = User::find($user_id);
 
         $user->cart()->detach();
 
         return response()->json(
-            Msg::getSucess("O carrinho foi esvaziado com sucesso!"),
+            "O carrinho foi esvaziado com sucesso!",
             200
         );
 

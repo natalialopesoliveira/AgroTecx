@@ -32,10 +32,7 @@ class UserController extends Controller
             $user = $this->user->find($user);
 
             if ($user) {
-                return response()->json(
-                    ['Usuario' => $user],
-                    200
-                );
+                return response()->json($user, 200);
             }
 
             return response()->json("Usuário nao encontrado", 404);
@@ -90,7 +87,7 @@ class UserController extends Controller
         try {
 
             $user = $this->user->findOrFail($user);
-            $user->update($data['user']);
+            $user->update($data);
 
 
             return response()->json("Usuário atualizado com sucesso!", 200);
